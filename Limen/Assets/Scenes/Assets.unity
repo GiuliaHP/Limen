@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 272a14b566f37f04bb9bc8a96e2ff199, type: 2}
+    - target: {fileID: -3691013029185800462, guid: b5c3fa3d0e550c44097377f7baa8c674, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d09f9a027101cc41aa640fe94527880, type: 2}
     - target: {fileID: -2783174052135916359, guid: b5c3fa3d0e550c44097377f7baa8c674, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -320,6 +324,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 272a14b566f37f04bb9bc8a96e2ff199, type: 2}
+    - target: {fileID: 8665960327726279318, guid: b5c3fa3d0e550c44097377f7baa8c674, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d09f9a027101cc41aa640fe94527880, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -508,6 +516,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Chara_Plush
       objectReference: {fileID: 0}
+    - target: {fileID: 3463934715036995798, guid: 1d658a82ee6ce2c4abe06b42f4e440ae, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5d09f9a027101cc41aa640fe94527880, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -830,8 +830,8 @@
     "m_ObjectId": "0187f91abc1d4f19a96712eee283c5ff",
     "m_Title": "Base Color",
     "m_Position": {
-        "x": -1675.2000732421875,
-        "y": 309.6000061035156
+        "x": -1675.2001953125,
+        "y": 309.60009765625
     }
 }
 
@@ -885,8 +885,8 @@
     "m_ObjectId": "04afb507254e4f818f045ee77182dbd5",
     "m_Title": "Opacity",
     "m_Position": {
-        "x": -804.7999877929688,
-        "y": 611.9999389648438
+        "x": -804.800048828125,
+        "y": 612.0
     }
 }
 
@@ -1192,8 +1192,8 @@
     "m_ObjectId": "0ed42eb6f9a44097a72eeeceb5b5c233",
     "m_Title": "Specular",
     "m_Position": {
-        "x": -517.599853515625,
-        "y": -216.7999725341797
+        "x": -517.60009765625,
+        "y": -216.79998779296876
     }
 }
 
@@ -1465,6 +1465,22 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "1983eed511734138b3ee2a1e2ff328c9",
+    "m_Id": 1828029185,
+    "m_DisplayName": "Shading Outline Position",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Shading_Outline_Position",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "2278b207664f48b89e7733db03c6786b",
     "m_Group": {
@@ -1570,7 +1586,7 @@
     "m_Group": {
         "m_Id": ""
     },
-    "m_Name": "SG_Fresnel With Highlight",
+    "m_Name": "SSG_Fresnel With Highlight",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -1849,6 +1865,22 @@
     },
     "m_Labels": [],
     "m_Space": 2
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "2e6ee71723d74c3eaaad1f034af5066e",
+    "m_Id": 1364310010,
+    "m_DisplayName": "Shading Outline Thickness",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Shading_Outline_Thickness",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
 }
 
 {
@@ -2237,10 +2269,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -1675.199951171875,
-            "y": 14.39999771118164,
-            "width": 154.39990234375,
-            "height": 33.60002517700195
+            "x": -1643.199951171875,
+            "y": 63.99998092651367,
+            "width": 155.2000732421875,
+            "height": 33.59999465942383
         }
     },
     "m_Slots": [
@@ -2410,7 +2442,7 @@
     "m_ObjectId": "534cedd8e0334a5fa480a7726618aee1",
     "m_Title": "Metalness",
     "m_Position": {
-        "x": -515.9999389648438,
+        "x": -516.0,
         "y": -455.1999816894531
     }
 }
@@ -2521,8 +2553,8 @@
     "m_ObjectId": "5a539558eaf64516bcfb8991871c060d",
     "m_Title": "Emissive",
     "m_Position": {
-        "x": -797.599853515625,
-        "y": 70.40000915527344
+        "x": -797.60009765625,
+        "y": 70.4000244140625
     }
 }
 
@@ -2717,7 +2749,7 @@
     "m_Group": {
         "m_Id": "f81200f568bf4681a490794b8bbb70fc"
     },
-    "m_Name": "SG_Toon Shading",
+    "m_Name": "SSG_Toon Shading",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {
@@ -2734,6 +2766,18 @@
         },
         {
             "m_Id": "bec14c4c37ad49f39778d0306e1c59c7"
+        },
+        {
+            "m_Id": "1983eed511734138b3ee2a1e2ff328c9"
+        },
+        {
+            "m_Id": "2e6ee71723d74c3eaaad1f034af5066e"
+        },
+        {
+            "m_Id": "b59573476bc642c186aaa50b038fa6c2"
+        },
+        {
+            "m_Id": "d99a5dda6c20403798a76c366ba3d44d"
         },
         {
             "m_Id": "991b3ee30279461eb53a9cebac4a6446"
@@ -2753,11 +2797,19 @@
     "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"ad003485ccc9f6c4794ce2d283926276\",\n        \"type\": 3\n    }\n}",
     "m_PropertyGuids": [
         "2faaef1e-70fb-42af-936f-0a40b02da678",
-        "e543f075-480f-4aa8-8e2f-8186ef40b8f4"
+        "e543f075-480f-4aa8-8e2f-8186ef40b8f4",
+        "227ed4a0-38db-494e-b3ba-30c2c9d5f5c5",
+        "9ffd2ed3-2712-4f5e-ab22-24d0909cd651",
+        "7f549781-c1af-40f0-8f81-eda844037165",
+        "35be4092-72ee-4898-a9a4-fe1c44d8c8e0"
     ],
     "m_PropertyIds": [
         1437195718,
-        -573384933
+        -573384933,
+        1828029185,
+        1364310010,
+        -231156507,
+        -2129637743
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -2946,8 +2998,8 @@
     "m_ObjectId": "6d08a2a3ee594908a81f88a334e5e269",
     "m_Title": "Base Color",
     "m_Position": {
-        "x": -800.7999267578125,
-        "y": -330.39996337890627
+        "x": -800.800048828125,
+        "y": -330.3999328613281
     }
 }
 
@@ -3956,6 +4008,22 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "b59573476bc642c186aaa50b038fa6c2",
+    "m_Id": -2129637743,
+    "m_DisplayName": "Shading Outline Smoothness",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Shading_Outline_Smoothness",
+    "m_StageCapability": 3,
+    "m_Value": 0.10000000149011612,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.PropertyNode",
     "m_ObjectId": "b605b4e7423b49bcab64f3432e572f50",
     "m_Group": {
@@ -4540,6 +4608,22 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
+    "m_ObjectId": "d99a5dda6c20403798a76c366ba3d44d",
+    "m_Id": 4,
+    "m_DisplayName": "WithOutline",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "WithOutline",
+    "m_StageCapability": 3,
+    "m_Value": 0.0,
+    "m_DefaultValue": 0.0,
+    "m_Labels": [],
+    "m_LiteralMode": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "d9c9459f92104e0890577a0411c2c91e",
     "m_Id": 1,
@@ -5056,8 +5140,8 @@
     "m_ObjectId": "f64bbf2a72c848e29a6af61b2678ef6e",
     "m_Title": "Animation",
     "m_Position": {
-        "x": -1675.2000732421875,
-        "y": 55.999996185302737
+        "x": -1675.2001953125,
+        "y": 56.000118255615237
     }
 }
 
@@ -5111,7 +5195,7 @@
     "m_ObjectId": "f81200f568bf4681a490794b8bbb70fc",
     "m_Title": "Shading",
     "m_Position": {
-        "x": -1404.800048828125,
+        "x": -1404.80029296875,
         "y": -364.7999267578125
     }
 }
