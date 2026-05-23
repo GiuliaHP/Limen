@@ -40,7 +40,10 @@ Material:
     m_Floats:
     - _Animation_Amplitude: 0.05
     - _Animation_Speed: 1
+    - _Base_Emissive: 0
     - _Emissive: 0.2
+    - _Emissive_Sharpness: 1
+    - _Emissive_Size: 3.14
     - _Fresnel_Animation_Amplitude: 0.7
     - _Fresnel_Contrast: 2
     - _Fresnel_Placement: 2.22
@@ -51,26 +54,37 @@ Material:
     - _Highlight_Fresnel_Contrast: 4.03
     - _Highlight_Fresnel_Size: 0.34
     - _Highlight_Size: 0.2
+    - _Max_Emissive: 1
     - _Max_Fresnel_Strenght: 1
     - _Max_Metalness: 0
-    - _Max_Opacity: 0
+    - _Max_Opacity: 0.38
     - _Max_Smoothness: 0.6
     - _Max_Specular: 0
+    - _Min_Emissive: 0
     - _Min_Fresnel_Sterenght: 1
-    - _Min_Opacity: 0.95
+    - _Min_Opacity: 0
     - _Opacity_Contrast: 1.5
     - _Opacity_Fresnel_Contrast: 1.5
     - _Opacity_Fresnel_Size: 3
     - _Opacity_Size: 3
+    - _Outline_Emissive_Sharpness: 1
+    - _Outline_Emissive_Size: 8
+    - _Outline_Emissive_Strenght: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _Rim_Emissive: 1
+    - _Rim_Sharpness: 1
+    - _Rim_Size: 7
     - _Shading_Smoothness: 0.27
     - _Shading_Steps: 2
+    - _Skybox_Blur: 9
     - _Smoothness: 0
     m_Colors:
-    - _BaseColor: {r: 0.060640775, g: 0.06677155, b: 0.19245279, a: 1}
-    - _Highlight_Color: {r: 0.7363895, g: 0.27735847, b: 1, a: 1}
-    - _SecondaryColor: {r: 0.60584515, g: 0.25471687, b: 1, a: 1}
+    - _BaseColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}
+    - _Highlight_Color: {r: 0.2754717, g: 0.2754717, b: 0.2754717, a: 1}
+    - _Outline_Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}
+    - _SecondaryColor: {r: 0.4264151, g: 0.4264151, b: 0.4264151, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4401509337845480154

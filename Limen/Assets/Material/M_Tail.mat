@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Emissive
+  m_Name: M_Tail
   m_Shader: {fileID: -6465566751694194690, guid: e88db5b2fac14e849bf4b09319a28e64, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,7 +42,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Emissive: 20
+    - _Emissive: 10
     - _Max_Opacity: 1
     - _Min_Opacity: 0
     - _Opacity_Contrast: 1
@@ -59,7 +59,7 @@ Material:
     - _Shading_Steps: 2.57
     - _Speed: 0.1
     m_Colors:
-    - _Base_Color: {r: 1, g: 0.6343059, b: 0, a: 1}
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6454880506174675672
