@@ -81,7 +81,7 @@ Material:
     - _Skybox_Blur: 9
     - _Smoothness: 0
     m_Colors:
-    - _BaseColor: {r: 0.05660379, g: 0.05660379, b: 0.05660379, a: 1}
+    - _BaseColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
     - _Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}
     - _Highlight_Color: {r: 0.2754717, g: 0.2754717, b: 0.2754717, a: 1}
     - _Outline_Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}

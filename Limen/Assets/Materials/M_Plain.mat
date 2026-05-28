@@ -75,6 +75,7 @@ Material:
     - _Rim_Emissive: 1
     - _Rim_Sharpness: 1
     - _Rim_Size: 171.86
+    - _Shading_Contrast: 20
     - _Shading_Smoothness: 0
     - _Shading_Steps: 0
     - _Skybox_Blur: 9
