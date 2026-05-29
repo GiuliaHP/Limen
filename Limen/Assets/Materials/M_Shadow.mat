@@ -45,12 +45,12 @@ Material:
     - _Emissive_Sharpness: 1
     - _Emissive_Size: 3.14
     - _Fresnel_Animation_Amplitude: 0.7
-    - _Fresnel_Contrast: 2
+    - _Fresnel_Contrast: 3.32
     - _Fresnel_Placement: 2.22
-    - _Fresnel_Size: 1.5
+    - _Fresnel_Size: 2
     - _Fresnel_Strenght: 1.6
     - _Highlight_Animation_Amplitude: 0.05
-    - _Highlight_Contrast: 3.54
+    - _Highlight_Contrast: 2.1
     - _Highlight_Fresnel_Contrast: 4.03
     - _Highlight_Fresnel_Size: 0.34
     - _Highlight_Size: 0.2
@@ -81,11 +81,11 @@ Material:
     - _Skybox_Blur: 9
     - _Smoothness: 0
     m_Colors:
-    - _BaseColor: {r: 0.16981131, g: 0.16981131, b: 0.16981131, a: 1}
+    - _BaseColor: {r: 0.4037736, g: 0.4037736, b: 0.4037736, a: 1}
     - _Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}
-    - _Highlight_Color: {r: 0.2754717, g: 0.2754717, b: 0.2754717, a: 1}
+    - _Highlight_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Outline_Emissive_Color: {r: 0, g: 0.6858268, b: 1, a: 1}
-    - _SecondaryColor: {r: 0.4264151, g: 0.4264151, b: 0.4264151, a: 1}
+    - _SecondaryColor: {r: 0.87169814, g: 0.87169814, b: 0.87169814, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &4401509337845480154

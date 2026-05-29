@@ -6,104 +6,35 @@ public class PlayerCharacterController : MonoBehaviour
 {
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private Transform cameraTransform;
-    [SerializeField] private Transform cameraTarget;
     [SerializeField] private float rotationSmoothTime = 0.08f;
-    [SerializeField] private float mouseLookSensitivity = 0.12f;
-    [SerializeField] private float arrowLookSpeed = 120f;
-    [SerializeField] private float minPitch = -35f;
-    [SerializeField] private float maxPitch = 70f;
+    [SerializeField] private Transform cameraTransform;
     [SerializeField] private float interactionRadius = 2f;
     [SerializeField] private LayerMask interactableLayers = ~0;
 
     private CharacterController characterController;
     private Vector3 verticalVelocity;
     private float playerRotationVelocity;
-    private float cameraYaw;
-    private float cameraPitch;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
-        }
-
-        if (cameraTarget != null)
-        {
-            Vector3 angles = cameraTarget.eulerAngles;
-            cameraYaw = angles.y;
-            cameraPitch = NormalizeAngle(angles.x);
-        }
-        else
-        {
-            cameraYaw = transform.eulerAngles.y;
         }
     }
 
     private void Update()
     {
-        HandleLook();
         HandleMovement();
         HandleGravity();
         HandleInteraction();
     }
 
-    private void HandleLook()
-    {
-        if (cameraTarget == null)
-        {
-            return;
-        }
-
-        float yawDelta = 0f;
-        float pitchDelta = 0f;
-
-        if (Mouse.current != null)
-        {
-            Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-            yawDelta += mouseDelta.x * mouseLookSensitivity;
-            pitchDelta -= mouseDelta.y * mouseLookSensitivity;
-        }
-
-        if (Keyboard.current != null)
-        {
-            float keyYaw = 0f;
-            float keyPitch = 0f;
-
-            if (Keyboard.current.leftArrowKey.isPressed)
-            {
-                keyYaw -= 1f;
-            }
-
-            if (Keyboard.current.rightArrowKey.isPressed)
-            {
-                keyYaw += 1f;
-            }
-
-            if (Keyboard.current.upArrowKey.isPressed)
-            {
-                keyPitch += 1f;
-            }
-
-            if (Keyboard.current.downArrowKey.isPressed)
-            {
-                keyPitch -= 1f;
-            }
-
-            yawDelta += keyYaw * arrowLookSpeed * Time.deltaTime;
-            pitchDelta += keyPitch * arrowLookSpeed * Time.deltaTime;
-        }
-
-        cameraYaw += yawDelta;
-        cameraPitch = Mathf.Clamp(cameraPitch + pitchDelta, minPitch, maxPitch);
-        cameraTarget.rotation = Quaternion.Euler(cameraPitch, cameraYaw, 0f);
-    }
 
     private void HandleMovement()
     {
+        // Movement is relative to the fixed camera/screen view.
         if (cameraTransform == null && Camera.main != null)
         {
             cameraTransform = Camera.main.transform;
@@ -189,12 +120,12 @@ public class PlayerCharacterController : MonoBehaviour
             interactableLayers,
             QueryTriggerInteraction.Collide);
 
-        SimpleInteractable closestInteractable = null;
+        Interactable closestInteractable = null;
         float closestDistance = float.MaxValue;
 
         foreach (Collider hit in hits)
         {
-            SimpleInteractable interactable = hit.GetComponentInParent<SimpleInteractable>();
+            Interactable interactable = hit.GetComponentInParent<Interactable>();
             if (interactable == null || !interactable.CanInteract)
             {
                 continue;
@@ -214,14 +145,5 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    private static float NormalizeAngle(float angle)
-    {
-        angle %= 360f;
-        if (angle > 180f)
-        {
-            angle -= 360f;
-        }
-
-        return angle;
-    }
+    
 }
