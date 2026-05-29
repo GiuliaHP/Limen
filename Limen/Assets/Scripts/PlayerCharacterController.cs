@@ -18,10 +18,8 @@ public class PlayerCharacterController : MonoBehaviour
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
+
+        RefreshCameraTransform();
     }
 
     private void Update()
@@ -35,10 +33,7 @@ public class PlayerCharacterController : MonoBehaviour
     private void HandleMovement()
     {
         // Movement is relative to the fixed camera/screen view.
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
+        RefreshCameraTransform();
 
         if (Keyboard.current == null)
         {
@@ -93,6 +88,14 @@ public class PlayerCharacterController : MonoBehaviour
                 rotationSmoothTime);
 
             transform.rotation = Quaternion.Euler(0f, smoothedYaw, 0f);
+        }
+    }
+
+    private void RefreshCameraTransform()
+    {
+        if (Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
         }
     }
 

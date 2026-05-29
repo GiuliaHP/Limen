@@ -4,8 +4,14 @@ using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
+    [Header("Interaction")]
     public bool canInteract = true;
     public UnityEvent onInteract;
+    public UnityEvent onEnter;
+    public UnityEvent onExit;
+
+    [Space(12)]
+    [Header("Visual Feedback")]
     public float emissiveMinIntensity = -10f;
     public float emissiveMaxIntensity = 10f;
     public float emissiveTweenDuration = 0.25f;
@@ -15,10 +21,15 @@ public class Interactable : MonoBehaviour
     public float buttonCanvasTweenDuration = 0.2f;
     public float buttonCanvasVisibleScaleMultiplier = 1.05f;
     public float buttonCanvasHiddenScaleMultiplier = 0.9f;
+
+    [Space(12)]
+    [Header("References")]
     public Material selectedMaterial;
     public Collider triggerCollider;
     public Canvas buttonCanvas;
 
+    [Space(12)]
+    [Header("Runtime State")]
     private Tweener emissiveTween;
     private Tween scaleTween;
     private Tween buttonCanvasTween;
@@ -52,6 +63,12 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!IsPlayerCollider(other))
+        {
+            return;
+        }
+
+        onEnter?.Invoke();
         PlayPopScale();
         PlayButtonCanvasEnter();
         StartEmissiveTween(emissiveMaxIntensity);
@@ -59,6 +76,12 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (!IsPlayerCollider(other))
+        {
+            return;
+        }
+
+        onExit?.Invoke();
         PlayButtonCanvasExit();
         StartEmissiveTween(emissiveMinIntensity);
     }
@@ -76,6 +99,11 @@ public class Interactable : MonoBehaviour
         }
 
         onInteract?.Invoke();
+    }
+
+    private bool IsPlayerCollider(Collider other)
+    {
+        return other != null && other.GetComponentInParent<PlayerCharacterController>() != null;
     }
 
     private void StartEmissiveTween(float targetIntensity)
