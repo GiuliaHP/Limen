@@ -117,7 +117,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 272a14b566f37f04bb9bc8a96e2ff199, type: 2}
     - target: {fileID: 919132149155446097, guid: b5c3fa3d0e550c44097377f7baa8c674, type: 3}
       propertyPath: m_Name
-      value: Chara_Child
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 4056685553951950603, guid: b5c3fa3d0e550c44097377f7baa8c674, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -168,13 +168,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 1.26
-  m_Radius: 0.23
+  m_Height: 1
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.57, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &3509493915207499014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,13 +189,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacterController
   moveSpeed: 5
   gravity: -9.81
-  cameraTransform: {fileID: 0}
-  cameraTarget: {fileID: 5267677206612562012}
   rotationSmoothTime: 0.08
-  mouseLookSensitivity: 0.12
-  arrowLookSpeed: 120
-  minPitch: -35
-  maxPitch: 70
+  cameraTransform: {fileID: 0}
   interactionRadius: 2
   interactableLayers:
     serializedVersion: 2
