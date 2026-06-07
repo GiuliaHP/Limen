@@ -57,7 +57,7 @@ Material:
     - _ColorA: {r: 0, g: 0, b: 0, a: 0}
     - _ColorB: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 0}
     - _DefaultOutlinerColor: {r: 0.381132, g: 0.381132, b: 0.381132, a: 1}
-    - _Outline_Base_Color: {r: 0.23773581, g: 0.23773581, b: 0.23773581, a: 1}
+    - _Outline_Base_Color: {r: 0.16226411, g: 0.16226411, b: 0.16226411, a: 1}
     - _Outline_Color: {r: 0.5169811, g: 0.5169811, b: 0.5169811, a: 1}
     - _Outline_Selected_Color: {r: 1, g: 1, b: 1, a: 1}
     - _SelectedOutlineColor: {r: 1, g: 1, b: 1, a: 1}
