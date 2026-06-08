@@ -11,6 +11,9 @@ classes = (
 )
 
 def register():
+    # Propriétés d'état (sections dépliées/repliées)
+    main_panel.register_props()
+
     for cls in classes:
         if hasattr(bpy.types, cls.__name__):
             try: bpy.utils.unregister_class(getattr(bpy.types, cls.__name__))
@@ -21,3 +24,5 @@ def unregister():
     for cls in reversed(classes):
         try: bpy.utils.unregister_class(cls)
         except Exception: pass
+
+    main_panel.unregister_props()
