@@ -1,5 +1,5 @@
 # L'ID unique de ton rig
-RIG_ID = "e8bject3a22ff1a6"
+RIG_ID = "218c3h2c28aa52a6"
 
 # Le dictionnaire des os pour les Snaps IK/FK
 IKFK_DATA = {

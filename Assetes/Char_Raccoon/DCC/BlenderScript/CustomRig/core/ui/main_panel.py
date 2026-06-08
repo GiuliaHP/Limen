@@ -1,9 +1,10 @@
+from multiprocessing import context
+
 import bpy
 import collections
 from ..constants import RIG_ID, IKFK_DATA
 
 def flatten_children(iterable):
-    """Fonction utilitaire pour lire les calques (BoneCollections) même s'ils sont dans des sous-dossiers"""
     for item in iterable:
         yield item
         yield from flatten_children(item.children)
@@ -16,23 +17,36 @@ class VIEW3D_PT_raccoon_main_ui(bpy.types.Panel):
 
     @classmethod
     def poll(cls, context):
-        return context.active_object and context.active_object.type == 'ARMATURE' and context.mode == 'POSE'
+        return context.active_object and context.active_object.type == 'ARMATURE' and context.mode in {'POSE', 'OBJECT'}
 
     def draw(self, context):
         layout = self.layout
         pose_bones = context.active_object.pose.bones
         armature = context.active_object.data
+        is_pose_mode = context.mode == 'POSE'
 
         # --- 1. SKELETON VISIBILITY (Adult / Child) ---
-        layout.label(text="Display Skeleton:", icon='ARMATURE_DATA')
+        layout.label(text="Skeleton Mode:", icon='ARMATURE_DATA')
         row = layout.row(align=True)
         active_skel = armature.get("active_skeleton", "Adult")
+
+        op_child = row.operator("armature.toggle_skeleton_raccoon", text="Child", depress=(active_skel == "Child"))
+        op_child.skeleton_type = "Child"
 
         op_adult = row.operator("armature.toggle_skeleton_raccoon", text="Adult", depress=(active_skel == "Adult"))
         op_adult.skeleton_type = "Adult"
 
-        op_child = row.operator("armature.toggle_skeleton_raccoon", text="Child", depress=(active_skel == "Child"))
-        op_child.skeleton_type = "Child"
+        # --- Morphology Blend Slider (Pose mode uniquement) ---
+        if is_pose_mode:
+            master_bone_name = "root"
+            if master_bone_name in pose_bones:
+                pb = pose_bones[master_bone_name]
+                if "morph_blend" in pb:
+                    layout.prop(pb, '["morph_blend"]', text="Child  ←→  Adult", slider=True)
+                else:
+                    layout.label(text=f"Prop 'morph_blend' manquante sur {master_bone_name}", icon='ERROR')
+            else:
+                layout.label(text=f"Os maître '{master_bone_name}' introuvable", icon='ERROR')
 
         layout.separator()
 
@@ -43,7 +57,6 @@ class VIEW3D_PT_raccoon_main_ui(bpy.types.Panel):
         for coll in flatten_children(armature.collections):
             if coll.name in ["Adult", "Child"]:
                 continue
-                
             row_id = getattr(coll, "rigify_ui_row", 0)
             if row_id > 0:
                 row_table[row_id].append(coll)
@@ -62,47 +75,33 @@ class VIEW3D_PT_raccoon_main_ui(bpy.types.Panel):
 
         layout.separator()
 
-        # --- 3. MORPHOLOGY BLENDING (Nouveau Slider) ---
-        layout.label(text="Morphology Blend:", icon='MOD_MESHDEFORM')
-        
-        master_bone_name = "root" 
-        if master_bone_name in pose_bones:
-            pb = pose_bones[master_bone_name]
-            if "morph_blend" in pb:
-                layout.prop(pb, '["morph_blend"]', text="Child <--> Adult", slider=True)
-            else:
-                layout.label(text=f"Prop 'morph_blend' manquante sur {master_bone_name}", icon='ERROR')
-        else:
-            layout.label(text=f"Os maître '{master_bone_name}' introuvable", icon='ERROR')
+        # --- 3. IK/FK SLIDERS (Pose mode uniquement) ---
+        if is_pose_mode:
+            layout.label(text=f"IK / FK Blend ({active_skel}):", icon='CON_KINEMATIC')
 
-        layout.separator()
+            ikfk_bones_adult = {
+                "Arm L": "Adult_upper_arm_parent.L",
+                "Arm R": "Adult_upper_arm_parent.R",
+                "Leg L": "Adult_thigh_parent.L",
+                "Leg R": "Adult_thigh_parent.R"
+            }
+            
+            ikfk_bones_child = {
+                "Arm L": "Child_upper_arm_parent.L",
+                "Arm R": "Child_upper_arm_parent.R",
+                "Leg L": "Child_thigh_parent.L",
+                "Leg R": "Child_thigh_parent.R"
+            }
 
-        # --- 4. IK/FK SLIDERS ---
-        layout.label(text=f"IK / FK ({active_skel}):", icon='CON_KINEMATIC')
+            active_ikfk_list = ikfk_bones_adult if active_skel == "Adult" else ikfk_bones_child
 
-        ikfk_bones_adult = {
-            "Arm L": "Adult_upper_arm_parent.L",
-            "Arm R": "Adult_upper_arm_parent.R",
-            "Leg L": "Adult_thigh_parent.L",
-            "Leg R": "Adult_thigh_parent.R"
-        }
-        
-        ikfk_bones_child = {
-            "Arm L": "Child_upper_arm_parent.L",
-            "Arm R": "Child_upper_arm_parent.R",
-            "Leg L": "Child_thigh_parent.L",
-            "Leg R": "Child_thigh_parent.R"
-        }
-
-        active_ikfk_list = ikfk_bones_adult if active_skel == "Adult" else ikfk_bones_child
-
-        col = layout.column(align=True)
-        for label, bone_name in active_ikfk_list.items():
-            if bone_name in pose_bones:
-                if "IK_FK" in pose_bones[bone_name]:
-                    col.prop(pose_bones[bone_name], '["IK_FK"]', text=label, slider=True)
-                else:
-                    col.label(text=f"{label} : Prop 'IK_FK' manquante", icon='ERROR')
+            col = layout.column(align=True)
+            for label, bone_name in active_ikfk_list.items():
+                if bone_name in pose_bones:
+                    if "IK_FK" in pose_bones[bone_name]:
+                        col.prop(pose_bones[bone_name], '["IK_FK"]', text=label, slider=True)
+                    else:
+                        col.label(text=f"{label} : Prop 'IK_FK' manquante", icon='ERROR')
 
 classes = (VIEW3D_PT_raccoon_main_ui,)
 

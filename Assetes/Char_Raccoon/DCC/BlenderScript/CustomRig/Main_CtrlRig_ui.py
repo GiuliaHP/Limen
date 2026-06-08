@@ -19,7 +19,7 @@ import core
 importlib.reload(core)
 
 def register():
-    core.register()†
+    core.register()
 
 def unregister():
     core.unregister()
