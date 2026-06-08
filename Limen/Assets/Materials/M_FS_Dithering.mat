@@ -54,11 +54,11 @@ Material:
     - _Dithering: 1
     - _Mask_Opacity: 0.1
     - _Outline_Thickness: 0.55
-    - _Step_Threshold: 0
+    - _Step_Threshold: -0.02
     - _Steps: 32
     m_Colors:
     - _ColorA: {r: 0, g: 0, b: 0, a: 0}
-    - _ColorB: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 0}
+    - _ColorB: {r: 1, g: 1, b: 1, a: 0}
     - _DefaultOutlinerColor: {r: 0.381132, g: 0.381132, b: 0.381132, a: 1}
     - _Outline_Base_Color: {r: 0.16226408, g: 0.16226408, b: 0.16226408, a: 1}
     - _Outline_Color: {r: 0.5169811, g: 0.5169811, b: 0.5169811, a: 1}
