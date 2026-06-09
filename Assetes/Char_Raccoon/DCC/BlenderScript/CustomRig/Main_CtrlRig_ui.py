@@ -6,16 +6,16 @@ import importlib
 # 1. On vide la console pour y voir clair
 os.system('cls')
 
-# 2. On part du dossier du .blend
+# 2. On pointe vers la RACINE commune des outils (BlenderScript)
 blend_dir = os.path.dirname(bpy.data.filepath)
-script_dir = os.path.join(blend_dir, "BlenderScript", "CustomRig")
+script_root = os.path.join(blend_dir, "BlenderScript")
 
-# 3. On injecte de force dans Blender
-if script_dir not in sys.path:
-    sys.path.append(script_dir)
+# 3. On l'injecte dans le path
+if script_root not in sys.path:
+    sys.path.append(script_root)
 
-# 4. Importation
-import core
+# 4. Import NAMESPACÉ : évite tout conflit avec les autres outils du projet
+from CustomRig import core
 importlib.reload(core)
 
 def register():
