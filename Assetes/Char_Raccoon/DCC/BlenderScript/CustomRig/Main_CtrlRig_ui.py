@@ -17,6 +17,7 @@ if script_root not in sys.path:
 # 4. Import NAMESPACÉ : évite tout conflit avec les autres outils du projet
 from CustomRig import core
 importlib.reload(core)
+core.reload_core()
 
 def register():
     core.register()

@@ -4,6 +4,7 @@ import importlib
 from . import config
 from . import exporter
 from . import clips
+from . import operators
 from . import ui
 
 
@@ -12,11 +13,13 @@ def reload_core():
     importlib.reload(config)
     importlib.reload(exporter)
     importlib.reload(clips)
+    importlib.reload(operators)
     importlib.reload(ui)
 
 
 def _all_classes():
-    return (*exporter.classes, *clips.classes, *ui.classes)
+    # Opérateurs puis UI (Panel/UIList/Menu)
+    return (*operators.classes, *ui.classes)
 
 
 def register():

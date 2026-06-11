@@ -1,3 +1,4 @@
 # Marque AnimExport comme package Python.
-# Permet l'import namespacé `from AnimExport import anim_export_core`
-# depuis la racine BlenderScript, sans conflit avec les autres outils.
+# Permet l'import namespacé `from AnimExport import core` depuis la racine
+# BlenderScript : le dossier interne s'appelle simplement `core` (comme
+# CustomRig), le préfixe du dossier outil évitant tout conflit.

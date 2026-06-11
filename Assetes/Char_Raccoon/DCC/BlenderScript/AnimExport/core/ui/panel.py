@@ -1,7 +1,7 @@
 import bpy
-from . import config
-from . import exporter
-from . import clips
+from .. import config
+from .. import exporter
+from .. import clips
 
 
 class VIEW3D_PT_raccoon_anim_export(bpy.types.Panel):
@@ -47,8 +47,3 @@ class VIEW3D_PT_raccoon_anim_export(bpy.types.Panel):
         row.enabled = bool(exportable) and anim_obj is not None and deform_obj is not None
         row.operator("anim.raccoon_export_all",
                      text=f"Export {len(exportable)} Clips → FBX", icon='EXPORT')
-
-
-classes = (
-    VIEW3D_PT_raccoon_anim_export,
-)
