@@ -43,13 +43,51 @@ def list_exportable_actions():
             if getattr(a, "raccoon_export", True)]
 
 
+# ---------------------------------------------------------------------------
+# Reset / assign
+# ---------------------------------------------------------------------------
+
+def _prop_default(owner, key):
+    try:
+        return owner.id_properties_ui(key).as_dict().get("default")
+    except Exception:
+        return None
+
+
+def _reset_to_default(src):
+    """Remet le rig à son état par défaut AVANT d'assigner un clip.
+
+    Sans ça, un os/prop non keyé dans le clip garderait la valeur résiduelle
+    du clip précédent. Les canaux keyés seront ré-écrasés par la courbe.
+    """
+    for pb in src.pose.bones:
+        pb.location          = (0.0, 0.0, 0.0)
+        pb.rotation_quaternion = (1.0, 0.0, 0.0, 0.0)
+        pb.rotation_axis_angle = (0.0, 0.0, 1.0, 0.0)
+        pb.rotation_euler    = (0.0, 0.0, 0.0)
+        pb.scale             = (1.0, 1.0, 1.0)
+        for key in list(pb.keys()):
+            d = _prop_default(pb, key)
+            if d is not None:
+                try:
+                    pb[key] = d
+                except Exception:
+                    pass
+    for key in list(src.keys()):
+        d = _prop_default(src, key)
+        if d is not None:
+            try:
+                src[key] = d
+            except Exception:
+                pass
+
+
 def _assign_action(anim_obj, action):
     """Assigne une Action à l'objet, en gérant les slots de Blender 4.4+/5.0."""
     if anim_obj.animation_data is None:
         anim_obj.animation_data_create()
     ad = anim_obj.animation_data
     ad.action = action
-    # API slotted (Blender 4.4+) : lier explicitement le premier slot
     if hasattr(ad, "action_slot") and getattr(action, "slots", None):
         try:
             ad.action_slot = action.slots[0]
@@ -57,42 +95,47 @@ def _assign_action(anim_obj, action):
             pass
 
 
+# ---------------------------------------------------------------------------
+# Export d'un clip
+# ---------------------------------------------------------------------------
+
 def _export_one(context, action, rng, anim_obj, deform_obj, out_dir):
     """Exporte UNE action en FBX anim-only du Def. Renvoie (ok, message)."""
     scene = context.scene
     start, end = rng
 
-    # 1. Assigner l'action sur le rig de contrôle (il pilote le Def)
+    # 1. Assigner l'action sur le ctrl rig (il pilote le Def via contraintes)
+    _reset_to_default(anim_obj)
     _assign_action(anim_obj, action)
 
-    # 2. Régler la plage de la scène sur celle de l'action
+    # 2. Plage scène
     scene.frame_start = start
-    scene.frame_end = end
+    scene.frame_end   = end
     scene.frame_set(start)
     context.view_layer.update()
 
-    # 3. Ne sélectionner QUE le Def (anim-only)
+    # 3. Sélectionner QUE le Def
     for o in context.view_layer.objects:
         o.select_set(False)
     deform_obj.select_set(True)
     context.view_layer.objects.active = deform_obj
 
-    # 4. Export FBX (réglages orientés Unity)
+    # 4. Export FBX — le bake interne évalue les contraintes (COPY_TRANSFORMS + STRETCH_TO)
     filepath = os.path.join(out_dir, _sanitize(action.name) + ".fbx")
     try:
         bpy.ops.export_scene.fbx(
             filepath=filepath,
             use_selection=True,
-            object_types={'ARMATURE'},        # anim-only : pas de mesh
-            use_armature_deform_only=False,    # tout le squelette Def (cohérence Unity)
-            add_leaf_bones=False,              # Unity n'aime pas les leaf bones
+            object_types={'ARMATURE'},
+            use_armature_deform_only=False,
+            add_leaf_bones=False,
             bake_anim=True,
             bake_anim_use_all_bones=True,
             bake_anim_use_nla_strips=False,
-            bake_anim_use_all_actions=False,   # on pilote l'action manuellement
+            bake_anim_use_all_actions=False,
             bake_anim_force_startend_keying=True,
             bake_anim_step=1.0,
-            bake_anim_simplify_factor=0.0,
+            bake_anim_simplify_factor=0.1,
             axis_forward='-Z',
             axis_up='Y',
             apply_scale_options='FBX_SCALE_NONE',
@@ -100,7 +143,6 @@ def _export_one(context, action, rng, anim_obj, deform_obj, out_dir):
             apply_unit_scale=True,
             path_mode='AUTO',
         )
+        return True, f"{action.name}  →  {os.path.basename(filepath)}  [{start}-{end}]"
     except Exception as e:
         return False, f"{action.name} : échec export ({e})"
-
-    return True, f"{action.name}  →  {os.path.basename(filepath)}  [{start}-{end}]"

@@ -50,10 +50,13 @@ def set_active_clip(context, action):
     src = get_anim_source()
     if not src or action is None:
         return
-    exporter._assign_action(src, action)
+    exporter._reset_to_default(src)       # non-keyé -> défaut (source unique : exporter)
+    exporter._assign_action(src, action)  # keyé -> courbe (écrase le reset)
     rng = exporter._action_frame_range(action)
     if rng:
         context.scene.frame_start, context.scene.frame_end = rng
+        context.scene.frame_set(rng[0])
+    context.view_layer.update()
 
 
 def _select(context, action):

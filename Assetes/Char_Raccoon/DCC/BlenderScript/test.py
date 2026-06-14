@@ -1,47 +1,48 @@
 """
-TEST : applique la stratégie complète et vérifie la TRANSITION (blend 0/0.5/1).
-À ouvrir dans le Text Editor de Blender (Text > Open) puis Run (▶).
+TEST EXPORT : sort UN seul FBX "simple" du Def pour valider la chaîne Unity.
+À ouvrir dans le Text Editor de Blender (Text > Open) puis Run (>).
+
+- Choisis le clip dans CLIP_NAME (None = action active du RIG-CtrlRig).
+- Le FBX sort dans le dossier du .blend sous  _export_test/  (pas dans Unity,
+  pour ne pas polluer le projet pendant les essais).
 """
 import bpy
 import sys
 import os
+
+# --- params d'essai ---
+CLIP_NAME = None          # None = action active ; sinon "NomDeLAction"
+OUT_SUBDIR = "_export_test"
 
 root_dir = os.path.dirname(bpy.data.filepath)
 script_root = os.path.join(root_dir, "BlenderScript")
 if script_root not in sys.path:
     sys.path.append(script_root)
 
-from SetupDefContrites import Contrites_core as core
+from AnimExport import core
 core.reload_core()
+from AnimExport.core import exporter, config
 
-defr = bpy.data.objects["Def"]
-ctrl = bpy.data.objects["RIG-CtrlRig"]
+ctrl = bpy.data.objects[config.ANIM_SOURCE]
+defr = bpy.data.objects[config.DEF_ARMATURE]
 
-core.clear_rig_data("Def")
-core.apply_constraints_from_dict(defr, ctrl, core.MAPPING_DICT)
+# action à exporter
+if CLIP_NAME:
+    action = bpy.data.actions[CLIP_NAME]
+else:
+    action = ctrl.animation_data.action if ctrl.animation_data else None
+if action is None:
+    raise RuntimeError("Aucune action : assigne-en une au RIG-CtrlRig ou fixe CLIP_NAME.")
 
+out_dir = os.path.join(root_dir, OUT_SUBDIR)
+os.makedirs(out_dir, exist_ok=True)
 
-def blen(obj, bone):
-    dg = bpy.context.evaluated_depsgraph_get()
-    b = obj.evaluated_get(dg).pose.bones[bone]
-    return (b.tail - b.head).length
+rng = exporter.export_range(action)
+print(f"\n=== EXPORT TEST : {action.name}  plage={rng}  ->  {out_dir} ===")
+ok, msg = exporter._export_one(bpy.context, action, rng, ctrl, defr, out_dir)
+print(("OK   " if ok else "FAIL ") + msg)
 
-
-bones = ["upper_arm.L", "forearm.L", "thigh.L", "shin.L", "spine.004"]
-
-print("\n============ TRANSITION (longueurs Def) ============")
-print(f"  {'os':12} {'blend=0':>9} {'blend=0.5':>10} {'blend=1':>9}  {'monotone ?':>11}")
-for dn in bones:
-    vals = []
-    for bl in (0.0, 0.5, 1.0):
-        ctrl.pose.bones["root"]["morph_blend"] = bl
-        bpy.context.view_layer.update()
-        vals.append(blen(defr, dn))
-    v0, v5, v1 = vals
-    # 0.5 doit être ENTRE 0 et 1 (sinon = explosion à la transition)
-    lo, hi = min(v0, v1), max(v0, v1)
-    ok = "OK" if (lo - 1e-4) <= v5 <= (hi + 1e-4) else "<-- EXPLOSE"
-    print(f"  {dn:12} {v0:9.3f} {v5:10.3f} {v1:9.3f}  {ok:>11}")
-print("====================================================\n")
-print(">>> Glisse morph_blend 0<->1 dans le viewport : le Def doit morpher en douceur,")
-print(">>> sans à-coup ni explosion à mi-chemin.")
+fbx = os.path.join(out_dir, exporter._sanitize(action.name) + ".fbx")
+if os.path.exists(fbx):
+    print(f">>> {os.path.getsize(fbx)} octets : {fbx}")
+    print(">>> Glisse ce .fbx dans Unity (Assets) et vérifie l'anim sur l'avatar.")

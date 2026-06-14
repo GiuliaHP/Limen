@@ -1,0 +1,24 @@
+{
+ "def_count": 86,
+ "basis_count": 86,
+ "def_not_basis": [],
+ "used_groups": 86,
+ "used_not_basis": [],
+ "used_not_in_def": [],
+ "shape_keys": [
+  [
+   "MSH_Racoon_Body",
+   [
+    "Basis",
+    "Adult_shape"
+   ]
+  ],
+  [
+   "MSH_Racoon_TailDetails",
+   [
+    "Basis",
+    "Adult_shape"
+   ]
+  ]
+ ]
+}

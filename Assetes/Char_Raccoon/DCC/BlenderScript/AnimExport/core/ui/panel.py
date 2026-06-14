@@ -14,7 +14,7 @@ class VIEW3D_PT_raccoon_anim_export(bpy.types.Panel):
         layout = self.layout
         scene = context.scene
 
-        anim_obj = bpy.data.objects.get(config.ANIM_SOURCE)
+        anim_obj   = bpy.data.objects.get(config.ANIM_SOURCE)
         deform_obj = bpy.data.objects.get(config.DEF_ARMATURE)
 
         if anim_obj is None:
@@ -32,18 +32,31 @@ class VIEW3D_PT_raccoon_anim_export(bpy.types.Panel):
             rows=6,
         )
         col = row.column(align=True)
-        col.operator("anim.raccoon_clip_new", icon='ADD', text="")
-        col.operator("anim.raccoon_clip_delete", icon='REMOVE', text="")
+        col.operator("anim.raccoon_clip_new",    icon='ADD',        text="")
+        col.operator("anim.raccoon_clip_delete", icon='REMOVE',     text="")
         col.separator()
-        col.operator("anim.raccoon_clip_move", icon='TRIA_UP', text="").direction = 'UP'
+        col.operator("anim.raccoon_clip_move", icon='TRIA_UP',   text="").direction = 'UP'
         col.operator("anim.raccoon_clip_move", icon='TRIA_DOWN', text="").direction = 'DOWN'
         col.separator()
         col.menu("ANIM_MT_raccoon_clip_specials", icon='DOWNARROW_HLT', text="")
 
-        # --- Export ---
+        # --- Export animations ---
+        layout.separator()
         exportable = exporter.list_exportable_actions()
+        can_export = bool(exportable) and anim_obj is not None and deform_obj is not None
+
         row = layout.row()
-        row.scale_y = 1.4
-        row.enabled = bool(exportable) and anim_obj is not None and deform_obj is not None
-        row.operator("anim.raccoon_export_all",
-                     text=f"Export {len(exportable)} Clips → FBX", icon='EXPORT')
+        row.scale_y = 1.5
+        row.enabled = can_export
+        row.operator("anim.raccoon_export_unity_anim",
+                     text=f"Export {len(exportable)} Clips → .anim",
+                     icon='EXPORT')
+
+        # --- Update Model ---
+        layout.separator()
+        row = layout.row()
+        row.scale_y = 1.3
+        row.enabled = deform_obj is not None
+        row.operator("anim.raccoon_update_model",
+                     text="Update Model",
+                     icon='ARMATURE_DATA')

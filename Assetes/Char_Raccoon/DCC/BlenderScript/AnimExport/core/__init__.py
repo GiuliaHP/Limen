@@ -3,6 +3,7 @@ import importlib
 
 from . import config
 from . import exporter
+from . import unity_anim
 from . import clips
 from . import operators
 from . import ui
@@ -12,6 +13,7 @@ def reload_core():
     """Recharge les sous-modules (TD : nettoie la RAM entre deux runs)."""
     importlib.reload(config)
     importlib.reload(exporter)
+    importlib.reload(unity_anim)
     importlib.reload(clips)
     importlib.reload(operators)
     importlib.reload(ui)
