@@ -59,10 +59,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Blend: 0.04
     - _Contrast: 1.7
     - _Max_Metalness: 0
     - _Max_Specular: 0
-    - _Normal_Strenght: 1
+    - _Normal_Blend: 1
+    - _Normal_Strenght: 21.87
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Rim_Emissive: 0.25
@@ -72,6 +74,11 @@ Material:
     - _Shading_Smoothness: 0
     - _Shading_Steps: 4
     - _Skybox_Blur: 10
+    - _StrokeBlendingNoiseScale: 85.3
+    - _StrokeBlendingNoiseStrength: 0.127
+    - _StrokeRandomness: 1
+    - _StrokeScale: 7.6
+    - _UseBlendingNoise: 1
     - _UseOpacity: 0
     m_Colors:
     - _Base_Color: {r: 0, g: 0, b: 0, a: 1}

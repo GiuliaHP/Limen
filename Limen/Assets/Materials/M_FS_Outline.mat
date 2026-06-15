@@ -53,14 +53,14 @@ Material:
     - _Dither_Scale: 1
     - _Dithering: 0
     - _Mask_Opacity: 0.07
-    - _Outline_Thickness: 1
+    - _Outline_Thickness: 0.82
     - _Step_Threshold: 0
     - _Steps: 32
     m_Colors:
     - _ColorA: {r: 0, g: 0, b: 0, a: 0}
     - _ColorB: {r: 0.86415094, g: 0.86415094, b: 0.86415094, a: 0}
     - _DefaultOutlinerColor: {r: 0.381132, g: 0.381132, b: 0.381132, a: 1}
-    - _Outline_Base_Color: {r: 0, g: 0, b: 0, a: 0}
+    - _Outline_Base_Color: {r: 0.24528301, g: 0.05692415, b: 0.16709633, a: 1}
     - _Outline_Color: {r: 0.5169811, g: 0.5169811, b: 0.5169811, a: 1}
     - _Outline_Selected_Color: {r: 0.9622642, g: 0.9622642, b: 0.9622642, a: 1}
     - _Resolution: {r: 24, g: 24, b: 0, a: 0}
