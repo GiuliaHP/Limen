@@ -1,7 +1,6 @@
 import bpy
 import re
 from bpy.props import StringProperty
-from .. import config
 from ..clips import get_anim_source, _resolve_target, _next_order, _select
 
 
@@ -132,10 +131,10 @@ class ANIM_OT_raccoon_clip_mirror(bpy.types.Operator):
         return bool(bpy.data.actions)
 
     def execute(self, context):
-        src = get_anim_source()
+        src = get_anim_source(context)
         base = _resolve_target(self, context)
         if not src:
-            self.report({'ERROR'}, f"'{config.ANIM_SOURCE}' introuvable.")
+            self.report({'ERROR'}, "Sélectionne un objet du perso (RIG-<Char>)")
             return {'CANCELLED'}
         if not base:
             self.report({'WARNING'}, "Aucun clip ciblé.")

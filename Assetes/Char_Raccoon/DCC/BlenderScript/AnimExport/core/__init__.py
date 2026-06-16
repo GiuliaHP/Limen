@@ -2,6 +2,7 @@ import bpy
 import importlib
 
 from . import config
+from . import character
 from . import exporter
 from . import unity_anim
 from . import clips
@@ -11,7 +12,14 @@ from . import ui
 
 def reload_core():
     """Recharge les sous-modules (TD : nettoie la RAM entre deux runs)."""
+    # Purge complète du paquet générique : delete+reimport (robuste si un sous-module
+    # a été supprimé/renommé — un importlib.reload planterait sur 'spec not found').
+    import sys
+    for _n in [n for n in list(sys.modules)
+               if n == "blender_unity_anim" or n.startswith("blender_unity_anim.")]:
+        del sys.modules[_n]
     importlib.reload(config)
+    importlib.reload(character)
     importlib.reload(exporter)
     importlib.reload(unity_anim)
     importlib.reload(clips)

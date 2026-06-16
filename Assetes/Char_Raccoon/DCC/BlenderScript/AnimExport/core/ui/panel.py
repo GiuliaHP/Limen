@@ -1,5 +1,6 @@
 import bpy
 from .. import config
+from .. import character
 from .. import exporter
 from .. import clips
 
@@ -10,17 +11,43 @@ class VIEW3D_PT_raccoon_anim_export(bpy.types.Panel):
     bl_category = 'Item'
     bl_label = "Raccoon Anim Export"
 
+    @staticmethod
+    def _section_header(layout, scene, prop, label, icon):
+        """En-tête repliable (triangle cliquable, sans boîte) — style CustomRig."""
+        is_open = getattr(scene, prop, True)
+        header = layout.row(align=True)
+        header.prop(scene, prop, text="",
+                    icon='TRIA_DOWN' if is_open else 'TRIA_RIGHT', emboss=False)
+        header.label(text=label, icon=icon)
+        return is_open
+
     def draw(self, context):
         layout = self.layout
         scene = context.scene
 
-        anim_obj   = bpy.data.objects.get(config.ANIM_SOURCE)
-        deform_obj = bpy.data.objects.get(config.DEF_ARMATURE)
+        # Perso résolu par pattern depuis l'objet actif (DEF-<Char> / RIG-<Char>)
+        deform_obj, anim_obj, char = character.resolve(context)
+        has_rig = deform_obj is not None
+        has_ctrl = anim_obj is not None
+        morph = has_ctrl and character.has_morph(anim_obj)
 
-        if anim_obj is None:
-            layout.label(text=f"'{config.ANIM_SOURCE}' introuvable", icon='ERROR')
-        if deform_obj is None:
-            layout.label(text=f"'{config.DEF_ARMATURE}' introuvable", icon='ERROR')
+        if not has_rig:
+            layout.label(text="Sélectionne un objet (DEF-<Char>)", icon='ERROR')
+        else:
+            layout.label(text=f"Perso : {char}" + ("" if has_ctrl else "  (pas de RIG-)"),
+                         icon='OUTLINER_OB_ARMATURE')
+
+        # --- Setup rig + morph (section repliable, style CustomRig) ---
+        # boutons morph seulement si le perso a un morph (prop morph_blend détectée)
+        if morph and self._section_header(layout, scene, "raccoon_show_rigmorph",
+                                          "Rig & Morph", 'CONSTRAINT_BONE'):
+            col = layout.column(align=True)
+            col.enabled = has_rig and has_ctrl
+            col.operator("anim.raccoon_setup_rig", text="Setup Rig", icon='MODIFIER')
+            col.operator("anim.raccoon_update_adult_shape",
+                         text="Update Adult Shape", icon='SHAPEKEY_DATA')
+        if morph:
+            layout.separator()
 
         # --- Clip Manager : UIList + colonne de boutons ---
         layout.label(text="Clips", icon='ACTION')

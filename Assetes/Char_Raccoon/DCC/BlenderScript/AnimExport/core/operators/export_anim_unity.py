@@ -1,19 +1,18 @@
 import bpy
 import os
 
-from .. import config, exporter, unity_anim
+from .. import config, character, exporter, unity_anim
 
 
 class ANIM_OT_raccoon_export_unity_anim(bpy.types.Operator):
     bl_idname  = "anim.raccoon_export_unity_anim"
     bl_label   = "Export .anim (Unity)"
-    bl_description = "Exporte tous les clips cochés en fichiers .anim natifs Unity"
+    bl_description = "Exporte tous les clips cochés en .anim natifs Unity (ANIM_<Char>_<nom>)"
 
     def execute(self, context):
-        ctrl = bpy.data.objects.get(config.ANIM_SOURCE)
-        defr = bpy.data.objects.get(config.DEF_ARMATURE)
-        if ctrl is None or defr is None:
-            self.report({'ERROR'}, "Objets source/déform introuvables")
+        defr, ctrl, char = character.resolve(context)
+        if defr is None or ctrl is None:
+            self.report({'ERROR'}, "Sélectionne un objet du perso (DEF-<Char> / RIG-<Char>)")
             return {'CANCELLED'}
 
         exportable = exporter.list_exportable_actions()
@@ -26,10 +25,11 @@ class ANIM_OT_raccoon_export_unity_anim(bpy.types.Operator):
 
         ok_count, err_count = 0, 0
         for action, rng in exportable:
-            name = exporter._sanitize(action.name)
+            clip = character.clip_name(char, action.name)   # ANIM_<Char>_<nom>
+            name = exporter._sanitize(clip)
             filepath = os.path.join(out_dir, name + ".anim")
             try:
-                unity_anim.write_anim(filepath, action.name, context,
+                unity_anim.write_anim(filepath, clip, context,
                                       ctrl, defr, action, rng)
                 print(f"  OK  {action.name}  →  {name}.anim  [{rng[0]}-{rng[1]}]")
                 ok_count += 1

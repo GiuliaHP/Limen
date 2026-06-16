@@ -125,18 +125,23 @@ def _next_joint(ctrl_rig, bone_name):
 
 # --- COUCHES DE SETUP PAR OS ---
 
-def setup_bone_blend(def_pb, ctrl_rig, child_name, adult_name):
-    # BASE : COPY_TRANSFORMS (tête + roll), blendé
+def setup_bone_blend(def_pb, ctrl_rig, child_name, adult_name, use_stretch=False):
+    # BASE : COPY_TRANSFORMS (tête + roll + scale), blendé Child↔Adult.
+    # Plein (position+rotation+SCALE) → le scale d'animation (visage) passe au Def.
     add_copy_transforms(def_pb, ctrl_rig, child_name, "RT_Child", 1.0)
     c = add_copy_transforms(def_pb, ctrl_rig, adult_name, "RT_Adult")
     drive_influence(c, ctrl_rig, "blend")
 
-    # STRETCH vers l'empty-joint blendé (si l'os a un joint suivant)
-    nc = _next_joint(ctrl_rig, child_name)
-    na = _next_joint(ctrl_rig, adult_name)
-    if nc and na:
-        e = make_joint_helper(f"JNT_{def_pb.name}", ctrl_rig, nc, na)
-        add_stretch_to_empty(def_pb, e, "RT_Stretch")
+    # STRETCH_TO : UNIQUEMENT en mode legacy (use_stretch=True), pour reconstruire
+    # la cible adulte lors du re-bake du blendshape. En production (use_stretch=False)
+    # PAS de stretch : le scale non-uniforme n'est pas exportable en .anim (shear).
+    # Les proportions adultes viennent de la POSITION des joints (os déconnectés).
+    if use_stretch:
+        nc = _next_joint(ctrl_rig, child_name)
+        na = _next_joint(ctrl_rig, adult_name)
+        if nc and na:
+            e = make_joint_helper(f"JNT_{def_pb.name}", ctrl_rig, nc, na)
+            add_stretch_to_empty(def_pb, e, "RT_Stretch")
 
 
 def setup_bone_follow_parent(def_pb, ctrl_rig, target_name, present_side):
@@ -145,8 +150,33 @@ def setup_bone_follow_parent(def_pb, ctrl_rig, target_name, present_side):
     drive_influence(c, ctrl_rig, expr)
 
 
-def apply_constraints_from_dict(def_rig, ctrl_rig, mapping_dict):
-    print("=== 🚀 APPLICATION (helpers de joint + STRETCH_TO permanent) ===")
+def disconnect_def_bones(def_rig):
+    """Déconnecte tous les os (use_connect=False) : la tête n'est plus verrouillée
+    sur la queue du parent. Indispensable pour que les proportions adultes viennent
+    de la POSITION des joints (COPY_TRANSFORMS) et non d'un scale d'os.
+    Ne déplace aucun os (seul le flag change). Permanent dans l'armature."""
+    import bpy
+    prev_active = bpy.context.view_layer.objects.active
+    prev_mode = def_rig.mode
+    bpy.context.view_layer.objects.active = def_rig
+    bpy.ops.object.mode_set(mode='EDIT')
+    n = 0
+    for eb in def_rig.data.edit_bones:
+        if eb.use_connect:
+            eb.use_connect = False
+            n += 1
+    bpy.ops.object.mode_set(mode='OBJECT')
+    if prev_active:
+        bpy.context.view_layer.objects.active = prev_active
+    return n
+
+
+def apply_constraints_from_dict(def_rig, ctrl_rig, mapping_dict, use_stretch=False):
+    mode = "LEGACY stretch (re-bake)" if use_stretch else "PRODUCTION sans scale"
+    print(f"=== 🚀 APPLICATION ({mode}) ===")
+    n_d = disconnect_def_bones(def_rig)
+    if n_d:
+        print(f"   🔗 {n_d} os déconnectés (proportions par position).")
     n_h = clear_helpers()
     if n_h:
         print(f"   🧹 {n_h} anciens empties-joints supprimés.")
@@ -181,7 +211,7 @@ def apply_constraints_from_dict(def_rig, ctrl_rig, mapping_dict):
             print(f"   ⚠️  Cible Child '{child_name}' introuvable (os '{def_name}').")
 
         if has_child and has_adult:
-            setup_bone_blend(def_pb, ctrl_rig, child_name, adult_name)
+            setup_bone_blend(def_pb, ctrl_rig, child_name, adult_name, use_stretch)
             n_full += 1
         elif has_child or has_adult:
             if has_child:

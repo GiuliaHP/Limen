@@ -1,5 +1,4 @@
 import bpy
-from . import config
 from . import exporter
 
 # Nom de la propriété d'index de NOTRE liste (sert à reconnaître notre UIList
@@ -11,8 +10,12 @@ INDEX_PROP = "raccoon_clip_index"
 #  Helpers
 # ===========================================================================
 
-def get_anim_source():
-    return bpy.data.objects.get(config.ANIM_SOURCE)
+def get_anim_source(context=None):
+    """Rig de contrôle (RIG-<Char>) résolu par pattern depuis l'objet actif."""
+    from . import character
+    ctx = context or bpy.context
+    _, ctrl, _ = character.resolve(ctx)
+    return ctrl
 
 
 def active_clip_action(context):
@@ -88,6 +91,9 @@ def register_props():
     if not hasattr(bpy.types.Scene, INDEX_PROP):
         setattr(bpy.types.Scene, INDEX_PROP, bpy.props.IntProperty(
             name="Clip", default=0, min=0, update=_on_index_update))
+    # État déplié/replié de la section "Rig & Morph" (style CustomRig) — replié par défaut
+    if not hasattr(bpy.types.Scene, "raccoon_show_rigmorph"):
+        bpy.types.Scene.raccoon_show_rigmorph = bpy.props.BoolProperty(default=False)
 
 
 def unregister_props():
@@ -97,6 +103,8 @@ def unregister_props():
         del bpy.types.Action.raccoon_order
     if hasattr(bpy.types.Scene, INDEX_PROP):
         delattr(bpy.types.Scene, INDEX_PROP)
+    if hasattr(bpy.types.Scene, "raccoon_show_rigmorph"):
+        del bpy.types.Scene.raccoon_show_rigmorph
 
 
 def _normalize_orders():

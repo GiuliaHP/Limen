@@ -1,17 +1,11 @@
 # ============================================================================
-#  Configuration de l'exporteur d'animation
+#  Configuration de l'exporteur d'animation (générique, pattern-based)
 # ============================================================================
+#
+#  Aucun nom d'objet en dur : le personnage est résolu par pattern depuis
+#  l'objet actif (cf. character.py) — armature "DEF-<Char>" / ctrl "RIG-<Char>".
+#  Nommage : clips "ANIM_<Char>_<nom>", modèle "CHAR_<Char>.racmodel".
 
-# Objet qui PORTE les animations (les Actions y sont assignées).
-ANIM_SOURCE = "RIG-CtrlRig"
-
-# Objet de DÉFORMATION exporté. Piloté par ANIM_SOURCE via contraintes.
-DEF_ARMATURE = "Def"
-
-# Dossier .anim Unity  (chemin Blender relatif au .blend)
-# .blend est dans  ...\Char_Raccoon\DCC\  →  3 niveaux  →  Limen\Assets\Animations
-EXPORT_DIR = "//../../../Limen/Assets/Animations"
-
-# Export du modèle (mesh + Def, rest pose, sans animation) → Unity Assets/Models
-MODEL_EXPORT_DIR      = "//../../../Limen/Assets/Models"
-MODEL_EXPORT_FILENAME = "Chara_Raccoon.fbx"
+# Dossiers de sortie (relatifs au .blend) — communs à tous les persos.
+EXPORT_DIR       = "//../../../Limen/Assets/Animations"   # .anim Unity
+MODEL_EXPORT_DIR = "//../../../Limen/Assets/Models"       # .racmodel souverain
