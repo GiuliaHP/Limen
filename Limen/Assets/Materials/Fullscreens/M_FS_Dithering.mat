@@ -52,9 +52,9 @@ Material:
     - _Colors: 32
     - _Dither_Scale: 1
     - _Dithering: 1
-    - _Mask_Opacity: 0.1
+    - _Mask_Opacity: 0.02
     - _Outline_Thickness: 0.55
-    - _Step_Threshold: -0.02
+    - _Step_Threshold: -0.01
     - _Steps: 32
     m_Colors:
     - _ColorA: {r: 0, g: 0, b: 0, a: 0}

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.FullScreenPassRendererFeature
   m_Active: 1
-  injectionPoint: 600
+  injectionPoint: 450
   fetchColorBuffer: 1
   requirements: 0
-  passMaterial: {fileID: 2100000, guid: 8b9d14d6e6350c04199aa77cd28f9c94, type: 2}
+  passMaterial: {fileID: 2100000, guid: f093dc2bf89e2c7439e7fbaef4db6363, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1
@@ -33,10 +33,10 @@ MonoBehaviour:
   m_Name: FullScreenPassRendererFeature
   m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.FullScreenPassRendererFeature
   m_Active: 1
-  injectionPoint: 450
+  injectionPoint: 550
   fetchColorBuffer: 1
   requirements: 0
-  passMaterial: {fileID: 2100000, guid: f093dc2bf89e2c7439e7fbaef4db6363, type: 2}
+  passMaterial: {fileID: 2100000, guid: 8b9d14d6e6350c04199aa77cd28f9c94, type: 2}
   passIndex: 0
   bindDepthStencilAttachment: 0
   m_Version: 1

@@ -25,13 +25,14 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _ORIENTATION_VERTICAL
+  - _ORIENTATION_HORIZONTAL
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses:
   - MOTIONVECTORS
   m_LockedProperties: 
@@ -43,8 +44,8 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Color_Map:
-        m_Texture: {fileID: 2800000, guid: 50139de4bafaee044a21e1b42e406b5b, type: 3}
-        m_Scale: {x: 0.5, y: 0.5}
+        m_Texture: {fileID: 2800000, guid: cf0da1f13e732a84b8aafb1b3ca8d8ad, type: 3}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -83,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: a2bd7818e9358b94d8cbc2add6ad8c4e, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4319aee91e5a666478a4cefde5e39801, type: 3}
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -126,8 +127,9 @@ Material:
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _Border_Emissiveness: 10
-    - _Border_Size: 0.02
+    - _Border_Size: 0.005
     - _BumpScale: 1
+    - _CastShadows: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _Contrast: 1.5
@@ -141,13 +143,16 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
+    - _Gradient_End: 1
     - _Gradient_Offset: 0.67
     - _Gradient_Size: 1.55
+    - _Gradient_Start: -1
     - _Inverse_Gradient: 0
     - _Metallic: 0
-    - _Noise_Animation_Speed: 0.02
+    - _Metalness: 0
+    - _Noise_Animation_Speed: 0.01
     - _Noise_Scale: 1
-    - _Normal_Strenght: 1
+    - _Normal_Strenght: 0.2
     - _ORIENTATION: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -165,7 +170,9 @@ Material:
     - _Use_Gradient: 1
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1
+    - _ZTest: 4
     - _ZWrite: 1
+    - _ZWriteControl: 0
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Base_Color: {r: 0, g: 0, b: 0, a: 1}

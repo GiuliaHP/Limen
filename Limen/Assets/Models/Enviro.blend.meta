@@ -3,7 +3,47 @@ guid: b53df782d6beec7469657c1fbb9f2626
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Alpha
+    second: {fileID: 2100000, guid: bf1c9b15f0de18e4897059d28fdb85ae, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Ground_A
+    second: {fileID: 2100000, guid: 8d7f106975daa364eb41493f606f18de, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Ground_B
+    second: {fileID: 2100000, guid: 0ae2b413c149a55499be9fc73b827406, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Metal
+    second: {fileID: 2100000, guid: 93ae060bda97d6a4a84f157efb6eb0c3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Plants
+    second: {fileID: 2100000, guid: c5f73c77a0e237541ad153a4f28d3c64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Stone
+    second: {fileID: 2100000, guid: d0bd59cfc1e45884fa7b85dd164c42a3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tree
+    second: {fileID: 2100000, guid: 21b46a304551ea643a1623b689054433, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Wood
+    second: {fileID: 2100000, guid: f9910dbcffdc7fc4a81bc57cd43e6b5d, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
