@@ -112,7 +112,19 @@ public class PlayerCharacterController : MonoBehaviour
 
     private void HandleInteraction()
     {
-        if (Keyboard.current == null || !Keyboard.current.eKey.wasPressedThisFrame)
+        if (Keyboard.current == null)
+        {
+            return;
+        }
+
+        Plush heldPlush = GetComponentInChildren<Plush>();
+        if (heldPlush != null && heldPlush.IsHeld && Keyboard.current.fKey.wasPressedThisFrame)
+        {
+            heldPlush.DropPlush();
+            return;
+        }
+
+        if (!Keyboard.current.eKey.wasPressedThisFrame)
         {
             return;
         }
