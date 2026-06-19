@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Tree
+  m_Name: M_Tree_B
   m_Shader: {fileID: -6465566751694194690, guid: eb2dac916b09df34e868097dda3e3f82, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Color_Map:
-        m_Texture: {fileID: 2800000, guid: b90504ebd3356da499ed0fec76dc0962, type: 3}
+        m_Texture: {fileID: 2800000, guid: 970d14b7fa8f1eb4d8856f773bd3f6d3, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -84,7 +84,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normal_Map:
-        m_Texture: {fileID: 2800000, guid: 513e6f9f7e88d2644849fedb4ecfe11f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5a7e9b8f6a425fc41a0054ce158cc84e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:

@@ -32,6 +32,16 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_Plants_A
+    second: {fileID: 2100000, guid: c5f73c77a0e237541ad153a4f28d3c64, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Plants_B
+    second: {fileID: 2100000, guid: e0b89efd50a54cb469466f0919bedde4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Stone
     second: {fileID: 2100000, guid: d0bd59cfc1e45884fa7b85dd164c42a3, type: 2}
   - first:
@@ -39,6 +49,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: M_Tree
     second: {fileID: 2100000, guid: 21b46a304551ea643a1623b689054433, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tree_A
+    second: {fileID: 2100000, guid: 21b46a304551ea643a1623b689054433, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Tree_B
+    second: {fileID: 2100000, guid: 882ad76f14b99494da6f7529a0a513b4, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
