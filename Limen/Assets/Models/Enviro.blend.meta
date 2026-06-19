@@ -27,6 +27,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: M_PineTrees
+    second: {fileID: 2100000, guid: 46fa4ddd4d2d3744eb779a1a9944b3a8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: M_Plants
     second: {fileID: 2100000, guid: c5f73c77a0e237541ad153a4f28d3c64, type: 2}
   - first:
