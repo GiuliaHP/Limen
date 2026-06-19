@@ -14,10 +14,10 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_Fog: 1
+  m_FogColor: {r: 0, g: 0, b: 0, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.01
+  m_FogDensity: 0.05
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 0.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.57185423, g: 0, b: 1, a: 1}
-  m_SkyboxMaterial: {fileID: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1deae42fd1478284fb568b8e21dec6c5, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -358,9 +358,11 @@ MonoBehaviour:
   - {fileID: 2100000, guid: d0bd59cfc1e45884fa7b85dd164c42a3, type: 2}
   - {fileID: 2100000, guid: 21b46a304551ea643a1623b689054433, type: 2}
   - {fileID: 2100000, guid: f9910dbcffdc7fc4a81bc57cd43e6b5d, type: 2}
+  - {fileID: 2100000, guid: 1deae42fd1478284fb568b8e21dec6c5, type: 2}
   transitionPropertyName: _Transition_State
   transitionDuration: 0.5
   transitionEase: 3
+  transitionFogColor: {r: 0.5803922, g: 0.5921569, b: 1, a: 1}
   alternateRendererData: {fileID: 11400000, guid: 2bce44ee84b29464e88995571c848ad3, type: 2}
   onTransitionTriggered:
     m_PersistentCalls:
@@ -1511,8 +1513,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1900105900}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.012981838, y: 0.9398026, z: -0.03592823, w: -0.33957598}
-  m_LocalPosition: {x: 0.67, y: 0.98, z: -2.19}
+  m_LocalRotation: {x: -0.042371236, y: 0.1869612, z: 0.008071751, w: 0.9814199}
+  m_LocalPosition: {x: -1.42, y: 0.71, z: -4.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

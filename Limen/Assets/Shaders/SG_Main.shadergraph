@@ -2730,7 +2730,7 @@
     "m_PerRendererData": false,
     "m_customAttributes": [],
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"4319aee91e5a666478a4cefde5e39801\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"513e6f9f7e88d2644849fedb4ecfe11f\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -5037,7 +5037,7 @@
     "m_Title": "Blending",
     "m_Position": {
         "x": -703.9999389648438,
-        "y": 99.20001220703125
+        "y": 99.1999740600586
     }
 }
 
@@ -5265,8 +5265,8 @@
     "m_ObjectId": "86fc8935b306417e9d168e24f7c59852",
     "m_Title": "Normal",
     "m_Position": {
-        "x": -424.7998046875,
-        "y": 99.20001220703125
+        "x": -424.7999267578125,
+        "y": 99.1999740600586
     }
 }
 
@@ -5824,8 +5824,8 @@
     "m_ObjectId": "9de21cba7ffe4e7b9e3d63d130c89d54",
     "m_Title": "Transition",
     "m_Position": {
-        "x": -2756.799560546875,
-        "y": 876.7999267578125
+        "x": -2756.800048828125,
+        "y": 876.7999877929688
     }
 }
 
@@ -6482,7 +6482,7 @@
     "m_PerRendererData": false,
     "m_customAttributes": [],
     "m_Value": {
-        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"cf0da1f13e732a84b8aafb1b3ca8d8ad\",\"type\":3}}",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"b90504ebd3356da499ed0fec76dc0962\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -7883,7 +7883,7 @@
     "m_ObjectId": "f03c318e26fc494ca9dbbe1fde4bb925",
     "m_Title": "Wind",
     "m_Position": {
-        "x": -671.9998779296875,
+        "x": -671.9999389648438,
         "y": -531.199951171875
     }
 }

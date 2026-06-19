@@ -16,6 +16,7 @@ public class Transition : MonoBehaviour
     [SerializeField] private string transitionPropertyName = "_Transition";
     [SerializeField] private float transitionDuration = 0.5f;
     [SerializeField] private Ease transitionEase = Ease.OutSine;
+    [SerializeField] private Color transitionFogColor = Color.white;
     [Space(12)]
     [Header("URP Renderer Swap")]
     [SerializeField] private ScriptableRendererData alternateRendererData;
@@ -25,14 +26,17 @@ public class Transition : MonoBehaviour
     public UnityEvent onTransitionTriggered;
 
     private Tween transitionTween;
+    private Tween fogTween;
     private float currentTransitionValue;
     private UniversalRenderPipelineAsset pipelineAsset;
     private ScriptableRendererData originalRendererData;
+    private Color originalFogColor;
     private bool isUsingAlternateRenderer;
 
     private void Start()
     {
         CachePipelineAsset();
+        originalFogColor = RenderSettings.fogColor;
         currentTransitionValue = GetCurrentTransitionValue();
     }
 
@@ -69,6 +73,7 @@ public class Transition : MonoBehaviour
 
         float targetValue = goForward ? 1f : 0f;
         StartTransitionTween(targetValue);
+        StartFogTween(goForward ? transitionFogColor : originalFogColor);
 
         if (goForward)
         {
@@ -92,12 +97,12 @@ public class Transition : MonoBehaviour
 
     private void StartTransitionTween(float targetValue)
     {
+        transitionTween?.Kill();
+
         if (materials == null || materials.Count == 0)
         {
             return;
         }
-
-        transitionTween?.Kill();
 
         transitionTween = DOTween.To(
                 () => currentTransitionValue,
@@ -107,6 +112,18 @@ public class Transition : MonoBehaviour
                     ApplyTransitionValue(currentTransitionValue);
                 },
                 targetValue,
+                transitionDuration)
+            .SetEase(transitionEase);
+    }
+
+    private void StartFogTween(Color targetColor)
+    {
+        fogTween?.Kill();
+
+        fogTween = DOTween.To(
+                () => RenderSettings.fogColor,
+                value => RenderSettings.fogColor = value,
+                targetColor,
                 transitionDuration)
             .SetEase(transitionEase);
     }
@@ -131,8 +148,10 @@ public class Transition : MonoBehaviour
     private void ResetTransitionState()
     {
         transitionTween?.Kill();
+        fogTween?.Kill();
         currentTransitionValue = 0f;
         ApplyTransitionValue(currentTransitionValue);
+        RenderSettings.fogColor = originalFogColor;
         RestoreBaseRendererData();
     }
 
