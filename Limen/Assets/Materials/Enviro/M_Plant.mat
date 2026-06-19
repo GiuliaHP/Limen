@@ -27,9 +27,9 @@ Material:
   m_ValidKeywords:
   - _ALPHAPREMULTIPLY_ON
   - _ALPHATEST_ON
-  - _ORIENTATION_VERTICAL
   - _SURFACE_TYPE_TRANSPARENT
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _ORIENTATION_VERTICAL
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -71,9 +71,9 @@ Material:
     - _Smoothness: 0.4
     - _Transition_State: 0
     - _Use_Wind: 1
-    - _Wind_Scale: 100
-    - _Wind_Speed: 0.002
-    - _Wind_Strenght: 0.5
+    - _Wind_Scale: 50
+    - _Wind_Speed: 0.001
+    - _Wind_Strenght: 0.2
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
