@@ -1,67 +1,73 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class BillboardManager : MonoBehaviour
 {
     public enum RotationAxis { X, Y, Z, All }
 
     [Header("Configuration")]
-    [Tooltip("Choisissez l'axe sur lequel l'objet a le droit de tourner pour suivre la caméra.")]
-    public RotationAxis allowedAxis = RotationAxis.Y;
+    public RotationAxis allowedAxis = RotationAxis.Y; // Y est généralement le meilleur pour des arbres !
 
-    private Transform cameraTransform;
-    private Transform[] targets;
-    private int targetCount;
+    private Transform mainCameraTransform;
+    private List<Transform> children = new List<Transform>();
 
     void Start()
     {
-        cameraTransform = Camera.main.transform;
-
-        int count = transform.childCount;
-        targets = new Transform[count];
-        for (int i = 0; i < count; i++)
+        // 1. Mise en cache de la caméra
+        if (Camera.main != null)
         {
-            targets[i] = transform.GetChild(i);
+            mainCameraTransform = Camera.main.transform;
+        }
+        else
+        {
+            Debug.LogWarning("Aucune caméra principale trouvée dans la scène !");
+            return;
         }
 
-        targetCount = targets.Length;
+        // 2. Récupération de tous les enfants directs et application immédiate
+        foreach (Transform child in transform)
+        {
+            children.Add(child);
+            
+            // Applique la rotation selon l'axe choisi dès le Start
+            ApplyBillboard(child);
+        }
     }
 
     void LateUpdate()
     {
-        if (cameraTransform == null || targetCount == 0) return;
+        if (mainCameraTransform == null || children.Count == 0) return;
 
-        Vector3 camPos = cameraTransform.position;
-
-        for (int i = 0; i < targetCount; i++)
+        // 3. Mise à jour de l'orientation à chaque frame
+        foreach (Transform child in children)
         {
-            Transform t = targets[i];
-            if (t == null) continue;
+            ApplyBillboard(child);
+        }
+    }
 
-            Vector3 direction = camPos - t.position;
-            if (direction == Vector3.zero) continue;
-            
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            Vector3 targetEuler = targetRotation.eulerAngles;
-            Vector3 currentEuler = t.eulerAngles;
+    // Fonction centralisée pour appliquer la rotation sur l'axe choisi
+    private void ApplyBillboard(Transform child)
+    {
+        Vector3 targetDirection = mainCameraTransform.position - child.position;
+        Quaternion targetRotation = Quaternion.LookRotation(-targetDirection);
+        Vector3 eulerRotation = targetRotation.eulerAngles;
 
-            switch (allowedAxis)
-            {
-                case RotationAxis.X:
-                    t.eulerAngles = new Vector3(targetEuler.x, currentEuler.y, currentEuler.z);
-                    break;
+        Vector3 currentEuler = child.eulerAngles;
 
-                case RotationAxis.Y:
-                    t.eulerAngles = new Vector3(currentEuler.x, targetEuler.y, currentEuler.z);
-                    break;
-
-                case RotationAxis.Z:
-                    t.eulerAngles = new Vector3(currentEuler.x, currentEuler.y, targetEuler.z);
-                    break;
-
-                case RotationAxis.All:
-                    t.rotation = targetRotation;
-                    break;
-            }
+        switch (allowedAxis)
+        {
+            case RotationAxis.X:
+                child.eulerAngles = new Vector3(eulerRotation.x, currentEuler.y, currentEuler.z);
+                break;
+            case RotationAxis.Y:
+                child.eulerAngles = new Vector3(currentEuler.x, eulerRotation.y, currentEuler.z);
+                break;
+            case RotationAxis.Z:
+                child.eulerAngles = new Vector3(currentEuler.x, currentEuler.y, eulerRotation.z);
+                break;
+            case RotationAxis.All:
+                child.rotation = targetRotation;
+                break;
         }
     }
 }
