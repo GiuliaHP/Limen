@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
+using TMPro; // À enlever si vous utilisez le Text classique d'Unity
 
 public class Interactable : MonoBehaviour
 {
@@ -29,6 +30,8 @@ public class Interactable : MonoBehaviour
     public Material selectedMaterial;
     public Collider triggerCollider;
     public Canvas buttonCanvas;
+    [Tooltip("Le composant texte affichant la touche d'interaction")]
+    public TextMeshProUGUI promptText; // Remplacez par 'public UnityEngine.UI.Text promptText;' si ce n'est pas du TextMeshPro
 
     [Space(12)]
     [Header("Runtime State")]
@@ -60,6 +63,15 @@ public class Interactable : MonoBehaviour
 
             buttonCanvasGroup.alpha = 0f;
             buttonCanvas.transform.localScale = buttonCanvasInitialScale * buttonCanvasHiddenScaleMultiplier;
+        }
+    }
+
+    // Nouvelle méthode pour changer le texte à la volée
+    public void UpdatePromptText(string newText)
+    {
+        if (promptText != null)
+        {
+            promptText.text = newText;
         }
     }
 
@@ -108,7 +120,6 @@ public class Interactable : MonoBehaviour
             PlayButtonCanvasExit(); 
             StartEmissiveTween(emissiveMinIntensity); 
 
-            // Remet l'objet et ses enfants sur le layer "Default" (index 0)
             SetLayerRecursively(gameObject, 0);
         }
     }

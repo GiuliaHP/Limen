@@ -85,7 +85,7 @@ public class Plush : MonoBehaviour
 
         if (interactable != null)
         {
-            interactable.canInteract = false;
+            interactable.UpdatePromptText("F");
         }
 
         transform.SetParent(holdBone, true);
@@ -110,6 +110,7 @@ public class Plush : MonoBehaviour
 
         if (interactable != null)
         {
+            interactable.UpdatePromptText("E");
             interactable.canInteract = true;
         }
 
