@@ -5,28 +5,20 @@ public class ChangeCamera : MonoBehaviour
 {
     [SerializeField] private int activePriority = 100;
     [SerializeField] private int inactivePriority = 0;
-    [SerializeField] private CinemachineCamera enterCamera;
-    [SerializeField] private CinemachineCamera interactCamera;
-    [SerializeField] private string playerTag = "Player"; // Pour éviter que n'importe quel objet déclenche la caméra
+    [SerializeField] private CinemachineCamera cameraToActivate;
+    [SerializeField] private string playerTag = "Player";
 
-    // Déclenchement automatique à l'entrée dans le Trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(playerTag))
         {
-            SwitchOnEnter();
+            SwitchCamera();
         }
     }
 
-    public void SwitchOnEnter()
+    public void SwitchCamera()
     {
-        SwitchToCamera(enterCamera);
-    }
-
-    // Reste disponible pour être appelé uniquement par tes UnityEvents / Events
-    public void SwitchOnInteract()
-    {
-        SwitchToCamera(interactCamera);
+        SwitchToCamera(cameraToActivate);
     }
 
     public void SwitchToCamera(CinemachineCamera targetCamera)

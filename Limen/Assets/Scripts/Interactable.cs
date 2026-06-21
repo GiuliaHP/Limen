@@ -6,6 +6,8 @@ public class Interactable : MonoBehaviour
 {
     [Header("Interaction")]
     public bool canInteract = true;
+    [Tooltip("Si coché, l'interactable se désactivera après la première utilisation.")]
+    public bool isOneTimeUse = false; 
     public UnityEvent onInteract;
     public UnityEvent onEnter;
     public UnityEvent onExit;
@@ -63,7 +65,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!IsPlayerCollider(other))
+        if (!canInteract || !IsPlayerCollider(other))
         {
             return;
         }
@@ -76,7 +78,7 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!IsPlayerCollider(other))
+        if (!canInteract || !IsPlayerCollider(other))
         {
             return;
         }
@@ -99,6 +101,31 @@ public class Interactable : MonoBehaviour
         }
 
         onInteract?.Invoke();
+
+        if (isOneTimeUse)
+        {
+            canInteract = false;
+            PlayButtonCanvasExit(); 
+            StartEmissiveTween(emissiveMinIntensity); 
+
+            // Remet l'objet et ses enfants sur le layer "Default" (index 0)
+            SetLayerRecursively(gameObject, 0);
+        }
+    }
+
+    private void SetLayerRecursively(GameObject obj, int newLayer)
+    {
+        if (obj == null) return;
+        
+        obj.layer = newLayer;
+        
+        foreach (Transform child in obj.transform)
+        {
+            if (child != null)
+            {
+                SetLayerRecursively(child.gameObject, newLayer);
+            }
+        }
     }
 
     private bool IsPlayerCollider(Collider other)
