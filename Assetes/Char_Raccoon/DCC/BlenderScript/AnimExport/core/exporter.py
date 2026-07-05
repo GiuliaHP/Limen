@@ -59,6 +59,8 @@ def _reset_to_default(src):
 
     Sans ça, un os/prop non keyé dans le clip garderait la valeur résiduelle
     du clip précédent. Les canaux keyés seront ré-écrasés par la courbe.
+    (NB : IK_Stretch a son défaut réglé à 0 dans le rig → remis à 0 ici, pas
+    de stretch — cf. disable_ik_stretch.py.)
     """
     for pb in src.pose.bones:
         pb.location          = (0.0, 0.0, 0.0)

@@ -1,16 +1,8 @@
 """
-Adaptateur Raccoon → module générique `blender_unity_anim`.
+Adaptateur → module générique `blender_unity_anim` (conversion analytique).
 
-Toute la logique de sérialisation .anim (retarget, calibration, YAML) vit
-désormais dans le paquet autonome `blender_unity_anim` (à la racine de
-BlenderScript), réutilisable pour n'importe quelle armature.
-
-Ce fichier ne contient plus que la spécificité Raccoon :
- - la pose vient du CtrlRig (action assignée au ctrl, le Def suit par contraintes)
- - la basis vit dans AnimExport/core/unity_basis.json
-
-⚠ Si le squelette change : re-générer unity_basis.json via
-   _export_test/calibrate_basis.py (calibration générique Kabsch).
+Le ctrl porte l'action, le Def suit par contraintes ; on délègue l'écriture du
+.anim au writer générique sur le Def évalué.
 """
 
 import blender_unity_anim as bua
@@ -19,11 +11,11 @@ from . import exporter
 
 
 def write_anim(filepath, clip_name, context, ctrl_obj, def_obj, action, rng):
-    """Bake d'un clip Raccoon en .anim Unity (conversion analytique, sans FBX).
+    """Bake d'un clip en .anim Unity (conversion analytique, sans FBX).
 
-    Le CtrlRig porte l'action ; le Def la suit par contraintes. On délègue
-    l'écriture au writer générique sur le Def évalué. Le nœud racine Unity est
-    nommé comme l'armature (l'importeur custom fait pareil).
+    IK_Stretch : son défaut est réglé à 0 dans le rig (disable_ik_stretch.py),
+    donc _reset_to_default le remet à 0 → pas de stretch (scale non-uniforme
+    inexportable). Rien à forcer ici.
     """
     start, end = rng
     scene = context.scene
